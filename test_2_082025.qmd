@@ -15,73 +15,224 @@ format:
     
 ---
 
-## Lecture # 2 Example
+## <span style="font-size:80%"></span> {.smaller}
+
+::: columns
+::: {.column width="100%"}
+![](images/research_grant_idea.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="0%"}
 
 
 ::: incremental
-- Review: Data visualization practices in biomedical and clinical research
-- Discuss common data visualization pitfalls
-- Strategies for redesigning figures for insight
+
 
 
 :::
-
-
+:::
+:::
 ::: footer
-
 :::
 
 
 
-## Merge select code with figure ouput
+## <span style="font-size:80%"></span> {.smaller}
+
+::: columns
+::: {.column width="100%"}
+![](images/research_grant_idea_1.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="0%"}
+
+
+::: incremental
+
+
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%"></span> {.smaller}
+
+::: columns
+::: {.column width="100%"}
+![](images/research_grant_idea_2.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="0%"}
+
+
+::: incremental
+
+
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+
+## <span style="font-size:80%"></span> {.smaller}
+
+::: columns
+::: {.column width="100%"}
+![](images/research_grant_idea_3.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="0%"}
+
+
+::: incremental
+
+
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+
+## <span style="font-size:60%">Answering Biomedical Research Questions using Categorical Data Visualization</span> {.smaller}
+
+::: columns
+
+::: {.column width="100%"}
+**Descriptive & Structural Questions **
+
+::: incremental
+  - Who/What  is in the data?
+      - What categories exist?
+      - How large are they?
+      - How do groups overlap?
+:::
+:::
+
+::: {.column width="0%"}
+
+::: incremental
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+## <span style="font-size:60%">Answering Biomedical Research Questions using Categorical Data Visualization</span> {.smaller}
+
+::: columns
+
+::: {.column width="100%"}
+**Points to consider:**
+
+::: incremental
+  - Name/review variables
+  - Understand variable type (nominal/ordinal/binary)
+  - Describe variable’s role within the dataset (cohort descriptor, exposure, outcome/quality flag, operational)
+      - Size categories (counts & %): what/who is in each group
+      - Compare composition across groups: who differs from whom
+      - Show overlaps between groups
+  - Document cohort formation: how you got your final N.
+  - Determine whether ordering matters
+
+:::
+:::
+
+::: {.column width="0%"}
+
+::: incremental
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Dataset
+
+::: columns
+::: column
+- **Clinic** — nominal (A/B/C/D); cohort descriptor / clustering
+- **AgeBand** — ordinal (18–54 < 55–74 < ≥75); case-mix
+- **Blood glucose (Hem_A1c)** — ordinal (<7.0 < 7.0–8.9 < ≥9.0); disease control
+:::
+
+::: column
+<div class="tiny-table">
 
 ```{r}
-#| echo: true
-#| eval: false
-# one-liner example (shown, not executed)
-mean(mtcars$mpg)
+#| label: car-t-toxicity-table-1
+
+
+df <- data.frame(
+  Clinic = c("A","B","C","D"),
+  AgeBand = c("18–54","55–74","≥75", "25–34"),
+  Hem_A1c = c("<7.0","7.0–8.9","≥9.0","<5.0"),
+  check.names = FALSE
+)
+
+knitr::kable(df, align = c("l","r","r"))
+
 ```
-
-```{r}
-#| echo: false
-#| eval: true
-# Hidden long code (15 lines) that actually produces the plot
-suppressPackageStartupMessages(library(ggplot2))
-d <- mtcars
-d$am <- factor(d$am, labels = c("Automatic","Manual"))
-d$cyl <- factor(d$cyl)
-p <- ggplot(d, aes(hp, mpg, color = am))
-p <- p + geom_point()
-p <- p + geom_smooth(method = "loess", se = FALSE)
-p <- p + facet_grid(. ~ cyl)
-p <- p + labs(title = "Horsepower vs MPG",
-              x = "Horsepower", y = "Miles per Gallon",
-              color = "Transmission")
-p <- p + theme_minimal(base_size = 14)
-p <- p + theme(legend.position = "bottom")
-p <- p + guides(color = guide_legend(title.position = "top"))
-p <- p + scale_x_continuous(expand = c(0.02, 0.02))
-p <- p + scale_y_continuous(expand = c(0.02, 0.02))
-p
-```
+</div>
+:::
+:::
 
 
 
-## Text left, plot right
+
+## Describe categories in dataset
+
+::: columns
+::: column
+- **Payer** — nominal (Commercial/Medicare/Medicaid/Self-pay); operations/coverage
+- **ScreenUpToDate** — binary (No/Yes); quality outcome/flag
+- **Smoking** — nominal (Never/Former/Current); risk factor
+- **Eosinophil** count (EosHigh) — binary (No/Yes); biomarker/proxy for COPD phenotype
+:::
+
+::: column
+
+:::
+:::
+
+
+## Visualize Categorical Data Landscape
 
 ::: columns
 ::: {.column .small}
-### Why this matters
-- Pair clear narrative with evidence.
-- Keep audience focus: words left, visuals right.
-- Swap your own text here.
 
-**Tip:** This template hides R code and only shows the figure on the right.
-If you want to show code too, set `echo: true` in the chunk options.
+**Evaluating category size across clinics**
 
-::: callout-note
-Use this pattern for quick explanatory slides where the figure supports the point you're making.
-:::
+
+- *Question*: How many patients does each clinic (A–D) contribute right now?
+- *Plot type*: Bar chart of counts 
+- *Rationale*:  “who’s in the cohort” 
+
 
 :::
 ::: column
@@ -90,19 +241,49 @@ Use this pattern for quick explanatory slides where the figure supports the poin
 #| fig-width: 8
 #| fig-height: 5
 
-# A simple example plot (replace with your own data/plot)
-suppressPackageStartupMessages(library(ggplot2))
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
-ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point() +
-  geom_smooth(method = "loess", se = FALSE) +
-  labs(
-    title = "Fuel efficiency vs. weight",
-    x = "Weight (1000 lbs)",
-    y = "Miles per gallon"
-  ) +
-  theme_classic(base_size = 16) +
-  theme(plot.title = element_text(face = "bold"))
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({
+  library(ggplot2); library(forcats)
+})
+
+ggplot(df, aes(x = Clinic)) +
+  geom_bar(fill = "#2A76DD") +
+  labs(title = "Patients per Clinic", x = NULL, y = "Patients (n)") +
+  theme_classic(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    panel.background = element_rect(fill = "white", colour = NA),
+    plot.background  = element_rect(fill = "white", colour = NA)
+  )
 ```
 :::
 :::
@@ -113,868 +294,1137 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 .tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
 </style>
 
-## CAR-T Therapy Toxicity Overview
-
-::: columns
-::: column
-- CAR-T therapy can cause **Cytokine Release Syndrome (CRS)** and **Neurotoxicity**.
-- Most patients experience **Grade 1–2 toxicities**.
-- **Monitoring and early intervention** are crucial.
-:::
-
-::: column
-<div class="tiny-table">
-
-```{r}
-#| label: car-t-toxicity-table
-#| tbl-cap: "CAR-T Therapy Toxicity Counts"
-
-df <- data.frame(
-  Grade = c("Grade 1","Grade 2","Grade 3","Grade 4"),
-  CRS = c(30,25,10,3),
-  Neurotoxicity = c(28,22,12,2),
-  check.names = FALSE
-)
-
-knitr::kable(df, align = c("l","r","r"))
-```
-</div>
-:::
-:::
 
 
-
-
-
-
----
-
-## Variation: show the code too
+## Visualize Categorical Data Landscape
 
 ::: columns
 ::: {.column .small}
-You can reveal the code by turning on `echo: true` for a specific chunk.
-This slide demonstrates that option.
+
+**What the plot shows**
+
+
+- The figure communicates **category size**
+- **X-axis**: clinics
+- **Y-axis** is labeled “Patients (n)”
+
+    - raw counts (not percentages)
+- **Bars = counts** (n) of patients per **Clinic** (A, B, C, D)
+- The figure communicates **category size**
+
 :::
 ::: column
 
 ```{r}
-#| echo: true
 #| fig-width: 8
 #| fig-height: 5
 
-# Another quick example
-set.seed(1)
-df <- data.frame(
-  group = rep(c("A","B","C"), each = 20),
-  value = rnorm(60, mean = rep(c(0, 0.5, -0.2), each = 20), sd = 0.5)
-)
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
-ggplot(df, aes(group, value)) +
-  geom_boxplot() +
-  labs(title = "Group differences", x = NULL, y = "Value") +
-  theme_classic(base_size = 16) +
-  theme(plot.title = element_text(face = "bold"))
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({
+  library(ggplot2); library(forcats)
+})
+
+ggplot(df, aes(x = Clinic)) +
+  geom_bar(fill = "#2A76DD") +
+  labs(title = "Patients per Clinic", x = NULL, y = "Patients (n)") +
+  theme_classic(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    panel.background = element_rect(fill = "white", colour = NA),
+    plot.background  = element_rect(fill = "white", colour = NA)
+  )
 ```
 :::
 :::
 
-## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
-:::
+::: {.column .small}
 
-::: {.column width="50%"}
-Consider clinical and biomedical research discovery lifecycle:
+**Research utility**
 
 
-[Open dataset](https://health.data.ny.gov/stories/s/ru78-uxr9){.btn .btn-primary target="_blank" rel="noopener"}
-
-
-::: incremental
-- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
-- Generate analysis-ready datasets via data visualization in data wrangling
-- Modeling: visualize effect and outcomes
-- Improved communication via data storytelling
-
-
+- **Feasibility**: Allows you to identify where patient representation may be lacking for stratified or hierarchical analyses
+- **Design signal**: If one clinic contributes most patients, consider **site stratification/weighting** to avoid downstream biased comparisons
 
 :::
-:::
-<span style="font-size:60%">Wickham and Grolemund 2017</span>
-:::
-::: footer
-:::
-
-
-
-
-
-## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
-:::
-
-::: {.column width="50%"}
-Consider clinical and biomedical research discovery lifecycle:
-
-::: incremental
-- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
-- Generate analysis-ready datasets via data visualization in data wrangling
-- Modeling: visualize effect and outcomes
-- Improved communication via data storytelling
-
-
-
-:::
-:::
-<span style="font-size:60%">Wickham and Grolemund 2017</span>
-:::
-::: footer
-:::
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Plot and context
-
-::: columns
-
-::: column width="38%"
-
-::: callout-note
-#### How to read this figure
-- Scatterplot of **horsepower** vs **MPG** with a **LOESS** smooth.
-- Encodes a **negative relationship** (higher hp, lower mpg).
-- Use this slide style for *“What’s in the data right now?”* demos.
-- Tip: replace `mtcars` with your dataset; code is hidden by default.
-:::
-
-:::
-
-::: column width="62%"
+::: column
 
 ```{r}
-library(ggplot2)
-ggplot(mtcars, aes(hp, mpg, color = factor(am))) +
-  geom_point() +
-  geom_smooth(formula = y ~ x, method = "loess", se = FALSE) +
-  labs(color = "Transmission")
+#| fig-width: 8
+#| fig-height: 5
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({
+  library(ggplot2); library(forcats)
+})
+
+ggplot(df, aes(x = Clinic)) +
+  geom_bar(fill = "#2A76DD") +
+  labs(title = "Patients per Clinic", x = NULL, y = "Patients (n)") +
+  theme_classic(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    panel.background = element_rect(fill = "white", colour = NA),
+    plot.background  = element_rect(fill = "white", colour = NA)
+  )
 ```
-
-:::
-
-:::
-
-## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
-:::
-
-::: {.column width="50%"}
-Consider clinical and biomedical research discovery lifecycle:
-
-::: incremental
-- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
-- Generate analysis-ready datasets via data visualization in data wrangling
-- Modeling: visualize effect and outcomes
-- Improved communication via data storytelling
-
-
-
 :::
 :::
-<span style="font-size:60%">Wickham and Grolemund 2017</span>
-:::
-::: footer
-:::
 
 
-## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
-:::
+::: {.column .small}
 
-::: {.column width="50%"}
-Consider clinical and biomedical research discovery lifecycle:
-
-::: incremental
-- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
-- Generate analysis-ready datasets via data visualization in data wrangling
-- Modeling: visualize effect and outcomes
-- Improved communication via data storytelling
+**Evaluating composition across clinics (in-person visits): screening status**
 
 
+- *Question*: Within each clinic, what share of in-person visits are up-to-date on diabetes screening?
+- *Plot type*: 100% stacked bar chart shows composition within each clinic
+- *Rationale*:
+  
+  - Allows to compare mix (Yes vs No) rather than raw volume
 
 :::
-:::
-<span style="font-size:60%">Wickham and Grolemund 2017</span>
-:::
-::: footer
-:::
+::: column
 
+```{r}
+#| fig-width: 8
+#| fig-height: 9
 
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
+N <- 1500
 
-## <span style="font-size:80%">Guidance on effective visual communication</span> {.smaller}
-<br>
-<br>
-<br>
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
 
-::: columns
-::: {.column width="0%"}
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
 
-:::
+# Select in person visits only
+df_inp <- dplyr::filter(df, Visit == "In-person")
 
-::: {.column width="100%"}
-Communication
-
-::: incremental
-- Enables clear and impactful communication
-- Facilitates informed decision making
-:::
-:::
-
-:::
-::: footer
-:::
-
-## <span style="font-size:80%">Guidance on Improving visual communication</span> {.smaller}
-<br>
-<br>
-<br>
-
-::: columns
-::: {.column width="0%"}
-
-:::
-
-::: {.column width="100%"}
-Have a clear purpose
-
-::: incremental
-- Know the purpose of creating the graph
-- Identify the quantitative evidence to support the purpose
-- Identify the audience and focus the design to support their needs
-
-:::
-:::
-
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Guidance on Improving visual communication</span> {.smaller}
-<br>
-<br>
-<br>
-
-::: columns
-::: {.column width="0%"}
-
-:::
-
-::: {.column width="100%"}
-Make the message obvious
-
-::: incremental
-- Use proximity and alignment to aid comparisons
-- Use colors and annotations to highlight important details
-
-
+# Compute counts within each clinic
+tab <- df_inp %>%
+  count(Clinic, ScreenUpToDate, name = "n") %>%
+  group_by(Clinic) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup()
+#Generate plot
+ggplot(tab, aes(x = Clinic, y = pct, fill = ScreenUpToDate)) +
+  geom_col(width = 0.85, color = "white") +
+  scale_y_continuous(labels = percent) +
+  labs(
+    title = "Screening status for In-person visits — by Clinic",
+    x = NULL, y = "Share", fill = "Screen up-to-date"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "bottom")
+```
 :::
 :::
 
-:::
-::: footer
-:::
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 
-## <span style="font-size:80%">Common pitfalls: Avoiding misleading representations</span> {.smaller}
-<br>
-<br>
-<br>
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="0%"}
+::: {.column .small}
+
+**Evaluating composition across clinics (in-person visits): screening status**
+
+**What the plot shows**
+
+- Each bar : a clinic (A–D).
+- Stack segments = ScreenUpToDate categories (Yes/No)
+- Y-axis : within-clinic share (percent); each bar sums to 100%
+- Composition across clinics, not absolute counts
+
+  
+  - Allows to compare mix (Yes vs No) rather than raw volume
 
 :::
+::: column
 
-::: {.column width="100%"}
+```{r}
+#| fig-width: 8
+#| fig-height: 9
 
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
-::: incremental
-- Overloading visuals with too much data
-- Misleading representations of data
-- Small sample sizes and distributions
-- Cluttered/disorganized plots
+N <- 1500
 
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
 
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
 
+# Select in person visits only
+df_inp <- dplyr::filter(df, Visit == "In-person")
+
+# Compute counts within each clinic
+tab <- df_inp %>%
+  count(Clinic, ScreenUpToDate, name = "n") %>%
+  group_by(Clinic) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup()
+#Generate plot
+ggplot(tab, aes(x = Clinic, y = pct, fill = ScreenUpToDate)) +
+  geom_col(width = 0.85, color = "white") +
+  scale_y_continuous(labels = percent) +
+  labs(
+    title = "Screening status for In-person visits — by Clinic",
+    x = NULL, y = "Share", fill = "Screen up-to-date"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "bottom")
+```
 :::
 :::
 
-:::
-::: footer
-:::
 
-
-## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/nature_paper.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-- Comparison of computational tools (variant callers) that identify disease causing variants  from DNA samples
-- Comparison of 7 callers
-
-
-:::
-:::
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/nature_circle_plot.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-- Multi-colored mappings
-    - Use color minimally 
-- Overcrowded visualizations 
-    - Strategy: reduce information via filtering or clustering or use a different layout
-
-
-
-:::
-:::
-<span style="font-size:60%">Trevarton, A.J., et. al. (2023). Nature Scientific Reports.</span>
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/upset_callers_xmarks_cutoff35.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-- Upset plot comparing the performance of 7 callers
-
-
-
-:::
-:::
-:::
-::: footer
-:::
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 
 
 
 
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
-## <span style="font-size:80%">Misleading representations of data</span> {.smaller}
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="30%"}
-![](images/bar_plot_misrep.png){.border .border-thick}
+::: {.column .small}
 
+**Evaluating composition across clinics (in-person visits): screening status**
 
-:::
+**Research utility**
 
-::: {.column width="70%"}
-
-
-::: incremental
-
-
-
+- Study Feasibility: If some clinics have very low “Yes” rates—or one category is tiny consider pooling or sensitivity analyses
 
 :::
-:::
-<span style="font-size:60%">Riedel, N. (2022). Clin Sci Lond.</span>
-:::
-::: footer
-:::
+::: column
 
+```{r}
+#| fig-width: 8
+#| fig-height: 9
 
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
+N <- 1500
 
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
 
-::: columns
-::: {.column width="50%"}
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
 
+# Select in person visits only
+df_inp <- dplyr::filter(df, Visit == "In-person")
 
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
-
-:::
-:::
-
-:::
-::: footer
-:::
-
-
-
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
-
-::: columns
-::: {.column width="60%"}
-![](images/small_sample_n5.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="0%"}
-
-
-::: incremental
-
-
-
-
-:::
-:::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
-:::
-
-
-
-
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/small_sample_n20.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
-
+# Compute counts within each clinic
+tab <- df_inp %>%
+  count(Clinic, ScreenUpToDate, name = "n") %>%
+  group_by(Clinic) %>%
+  mutate(pct = n / sum(n)) %>%
+  ungroup()
+#Generate plot
+ggplot(tab, aes(x = Clinic, y = pct, fill = ScreenUpToDate)) +
+  geom_col(width = 0.85, color = "white") +
+  scale_y_continuous(labels = percent) +
+  labs(
+    title = "Screening status for In-person visits — by Clinic",
+    x = NULL, y = "Share", fill = "Screen up-to-date"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(legend.position = "bottom")
+```
 :::
 :::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
-:::
 
 
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="60%"}
-![](images/small_sample_n100.png){.border .border-thick}
+::: {.column .small}
+
+**Evaluating category size for Hemoglobin A1c distributions**
+
+- *Question*: How many patients fall into each A1c category?
+
+- *Plot type*: lollipop chart 
+
+- Rationale:
+
+  - line from 0 to the count with a dot at the top
+  - shows category sizes with exact labels 
 
 
 :::
+::: column
 
-::: {.column width="50%"}
+```{r}
+#| fig-width: 8
+#| fig-height: 9
 
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
-::: incremental
+N <- 1500
 
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
 
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
 
+# Select data
+a1c_counts <- df %>% count(Hem_A1c, name = "n")
 
-:::
-:::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
-:::
-
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
-
-::: columns
-::: {.column width="60%"}
-![](images/small_sample_npop.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
-
-:::
-:::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
-:::
-
-
-
-
-## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/effective_dotplot.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
-
-:::
-:::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
-:::
-
-
-
-
-
-
-
-
-
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-
-
-
-:::
-
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
-
+# Plot with larger fonts
+ggplot(a1c_counts, aes(x = Hem_A1c, y = n, color = Hem_A1c)) +
+  geom_segment(aes(xend = Hem_A1c, y = 0, yend = n),
+               linewidth = 1, lineend = "round") +
+  geom_point(size = 5) +
+  geom_text(aes(y = n * 1.08, label = comma(n)),
+            size = 5, fontface = "bold", show.legend = FALSE) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0.02, 0.20))) +
+  labs(title = "Hemoglobin A1c distribution",
+       x = NULL, y = "Patients (n)", color = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 18) +  # << bigger base font
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", size = 22),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 16),
+    plot.margin = margin(t = 12, r = 24, b = 12, l = 12)
+  )
+```
 :::
 :::
 
-:::
-::: footer
-:::
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/box_whisker_left.png){.border .border-thick}
+::: {.column .small}
 
+**Evaluating category size for Hemoglobin A1c distributions**
 
-:::
+**What the plot shows**
 
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
+- Each point is the count (n) in an A1c_bin category
+- Vertical segment emphasizes magnitude
+- In-plot labels show exact counts
+- Y-axis is Patients (n) (raw volume, not %).
 
 :::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
+
+# Select data
+a1c_counts <- df %>% count(Hem_A1c, name = "n")
+
+# Plot with larger fonts
+ggplot(a1c_counts, aes(x = Hem_A1c, y = n, color = Hem_A1c)) +
+  geom_segment(aes(xend = Hem_A1c, y = 0, yend = n),
+               linewidth = 1, lineend = "round") +
+  geom_point(size = 5) +
+  geom_text(aes(y = n * 1.08, label = comma(n)),
+            size = 5, fontface = "bold", show.legend = FALSE) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0.02, 0.20))) +
+  labs(title = "Hemoglobin A1c distribution",
+       x = NULL, y = "Patients (n)", color = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 18) +  # << bigger base font
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", size = 22),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 16),
+    plot.margin = margin(t = 12, r = 24, b = 12, l = 12)
+  )
+```
 :::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
 :::
 
 
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/box_whisker_right.png){.border .border-thick}
+::: {.column .small}
 
+**Evaluating category size for Hemoglobin A1c distributions**
 
-:::
+**Research utility**
 
-::: {.column width="50%"}
-
-
-::: incremental
-
-
-
+- **Feasibility & power**:  Could show whether you have enough patients in key strata (e.g., ≥9.0) for subgroup analyses
+- **Design signals**: If a category is very small or absent, consider to pooling or redefining bins
 
 :::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+#Import libraries
+suppressPackageStartupMessages({
+  library(dplyr); library(ggplot2); library(scales)
+})
+
+# Select data
+a1c_counts <- df %>% count(Hem_A1c, name = "n")
+
+# Plot with larger fonts
+ggplot(a1c_counts, aes(x = Hem_A1c, y = n, color = Hem_A1c)) +
+  geom_segment(aes(xend = Hem_A1c, y = 0, yend = n),
+               linewidth = 1, lineend = "round") +
+  geom_point(size = 5) +
+  geom_text(aes(y = n * 1.08, label = comma(n)),
+            size = 5, fontface = "bold", show.legend = FALSE) +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0.02, 0.20))) +
+  labs(title = "Hemoglobin A1c distribution",
+       x = NULL, y = "Patients (n)", color = NULL) +
+  coord_cartesian(clip = "off") +
+  theme_minimal(base_size = 18) +  # << bigger base font
+  theme(
+    panel.grid = element_blank(),
+    plot.title = element_text(face = "bold", size = 22),
+    axis.text.x = element_text(face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 16),
+    plot.margin = margin(t = 12, r = 24, b = 12, l = 12)
+  )
+```
 :::
-<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
-:::
-::: footer
 :::
 
 
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
+::: {.column .small}
 
+**Evaluating composition across groups**
 
-:::
+- *Question*: How does the smoking mix compare across age bands?
+- *Plot type*: row-normalized heatmap
+- Rationale:
 
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
-
-::: incremental
-
-
-
+  - shows smoking status composition within each age band
 
 :::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({ library(dplyr); library(ggplot2); library(scales) })
+
+df <- df %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current"))
+  )
+
+tab_age_smoke <- df %>%
+  count(AgeBand, Smoking, name = "n") %>%
+  group_by(AgeBand) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup()
+
+
+
+p <- ggplot(tab_age_smoke, aes(x = Smoking, y = AgeBand, fill = pct)) +
+  geom_tile() +
+  geom_text(
+    aes(label = sprintf("%0.0f%%\n(n=%s)", pct, scales::comma(n))),
+    size = 4.2,
+    fontface = "bold"
+  ) +
+  scale_fill_gradient(low = "#EFF6FF", high = "#2563EB", name = "Within age band (%)") +
+  labs(
+    title = "Smoking status by age band (row-normalized)",
+    subtitle = "Each row sums to 100% • Descriptive composition (no inference)",
+    x = "Smoking status", y = "Age band"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x  = element_text(face = "bold"),
+    axis.text.y  = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
+    axis.title.y = element_text(face = "bold", margin = margin(r = 14)),
+    plot.title   = element_text(face = "bold")
+  )
+
+print(p)
+
+
+```
 :::
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
 :::
 
 
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
-
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
+::: {.column .small}
+
+**Evaluating composition across groups**
+
+**What the plot shows**
+
+- **Axes** 
+  - X-axis: Smoking status 
+  - Y-axis:  Age band
 
 
+- Color (fill): Percentage of individuals within each group [smoking status amongst age bands]
+:::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({ library(dplyr); library(ggplot2); library(scales) })
+
+df <- df %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current"))
+  )
+
+tab_age_smoke <- df %>%
+  count(AgeBand, Smoking, name = "n") %>%
+  group_by(AgeBand) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup()
+
+
+
+p <- ggplot(tab_age_smoke, aes(x = Smoking, y = AgeBand, fill = pct)) +
+  geom_tile() +
+  geom_text(
+    aes(label = sprintf("%0.0f%%\n(n=%s)", pct, scales::comma(n))),
+    size = 4.2,
+    fontface = "bold"
+  ) +
+  scale_fill_gradient(low = "#EFF6FF", high = "#2563EB", name = "Within age band (%)") +
+  labs(
+    title = "Smoking status by age band (row-normalized)",
+    subtitle = "Each row sums to 100% • Descriptive composition (no inference)",
+    x = "Smoking status", y = "Age band"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x  = element_text(face = "bold"),
+    axis.text.y  = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
+    axis.title.y = element_text(face = "bold", margin = margin(r = 14)),
+    plot.title   = element_text(face = "bold")
+  )
+
+print(p)
+
+
+```
+:::
 :::
 
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
 
-::: incremental
-*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
-
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 
-:::
-:::
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
-:::
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
+::: {.column .small}
+
+**Evaluating composition across groups**
+
+**What the plot shows**
+
+- **Axes** 
+  - X-axis: Smoking status 
+  - Y-axis:  Age band
 
 
+- Color (fill): Percentage of individuals within each group [smoking status amongst age bands]
+:::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9
+
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
+
+N <- 1500
+
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
+
+suppressPackageStartupMessages({ library(dplyr); library(ggplot2); library(scales) })
+
+df <- df %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current"))
+  )
+
+tab_age_smoke <- df %>%
+  count(AgeBand, Smoking, name = "n") %>%
+  group_by(AgeBand) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup()
+
+
+
+p <- ggplot(tab_age_smoke, aes(x = Smoking, y = AgeBand, fill = pct)) +
+  geom_tile() +
+  geom_text(
+    aes(label = sprintf("%0.0f%%\n(n=%s)", pct, scales::comma(n))),
+    size = 4.2,
+    fontface = "bold"
+  ) +
+  scale_fill_gradient(low = "#EFF6FF", high = "#2563EB", name = "Within age band (%)") +
+  labs(
+    title = "Smoking status by age band (row-normalized)",
+    subtitle = "Each row sums to 100% • Descriptive composition (no inference)",
+    x = "Smoking status", y = "Age band"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x  = element_text(face = "bold"),
+    axis.text.y  = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
+    axis.title.y = element_text(face = "bold", margin = margin(r = 14)),
+    plot.title   = element_text(face = "bold")
+  )
+
+print(p)
+
+
+```
+:::
 :::
 
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
 
-::: incremental
-*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
-*Scatter Plot*: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity
 
-:::
-:::
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
-:::
 
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## Visualize Categorical Data Landscape
 
 ::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
+::: {.column .small}
 
+**Evaluating composition across groups**
 
+**Research utility (why this helps design)**
+
+- **Confounding awareness:** 
+  - If smoking composition differs by age could inform a downstream research question
+
+- **Feasibility: **
+  - In-tile (n) confirms whether strata like ≥75 and Smoking Status = Current are large enough for downstream analyses
 :::
+::: column
 
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+```{r}
+#| fig-width: 8
+#| fig-height: 9
 
-::: incremental
-*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+#Full Dataset
+suppressPackageStartupMessages(library(dplyr))
+set.seed(123)
 
-*Scatter Plot*: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity
+N <- 1500
 
-*Scatter Plot (Top Right)*: samples that’re STAT1/high CGI are inflamed and high genomic variability
+df <- tibble(
+  Clinic  = sample(c("A","B","C","D"), N, TRUE, c(.28,.28,.16,.28)),
+  AgeBand = sample(c("18–54","55–74","≥75"), N, TRUE, c(.38,.46,.16)),
+  Hem_A1c = sample(c("<7.0","7.0–8.9","≥9.0"), N, TRUE, c(.40,.42,.18)),
+  Payer   = sample(c("Commercial","Medicare","Medicaid","Self-pay"), N, TRUE, c(.41,.35,.18,.06)),
+  Visit   = sample(c("In-person","Telehealth","ED"), N, TRUE, c(.72,.22,.06)),
+  ScreenUpToDate = sample(c("Yes","No"), N, TRUE, c(.72,.28)),
+  Smoking = sample(c("Never","Former","Current"), N, TRUE, c(.55,.35,.10))
+) %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    # Derive the A1c category factor from the Hem_A1c string
+    A1cCat  = factor(Hem_A1c, levels = c("<7.0","7.0–8.9","≥9.0"), ordered = TRUE),
+    Payer   = factor(Payer, levels = c("Commercial","Medicare","Medicaid","Self-pay")),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current")),
+    # NEW: Simple COPD biomarker flag — High eosinophils (≥300 cells/µL) ~20%
+    EosHigh = factor(
+      sample(c("No","Yes"), N, replace = TRUE, prob = c(.80,.20)),
+      levels = c("No","Yes")
+    )
+  )
 
+suppressPackageStartupMessages({ library(dplyr); library(ggplot2); library(scales) })
+
+df <- df %>%
+  mutate(
+    AgeBand = factor(AgeBand, levels = c("18–54","55–74","≥75"), ordered = TRUE),
+    Smoking = factor(Smoking, levels = c("Never","Former","Current"))
+  )
+
+tab_age_smoke <- df %>%
+  count(AgeBand, Smoking, name = "n") %>%
+  group_by(AgeBand) %>%
+  mutate(pct = 100 * n / sum(n)) %>%
+  ungroup()
+
+
+
+p <- ggplot(tab_age_smoke, aes(x = Smoking, y = AgeBand, fill = pct)) +
+  geom_tile() +
+  geom_text(
+    aes(label = sprintf("%0.0f%%\n(n=%s)", pct, scales::comma(n))),
+    size = 4.2,
+    fontface = "bold"
+  ) +
+  scale_fill_gradient(low = "#EFF6FF", high = "#2563EB", name = "Within age band (%)") +
+  labs(
+    title = "Smoking status by age band (row-normalized)",
+    subtitle = "Each row sums to 100% • Descriptive composition (no inference)",
+    x = "Smoking status", y = "Age band"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    panel.grid = element_blank(),
+    axis.text.x  = element_text(face = "bold"),
+    axis.text.y  = element_text(face = "bold"),
+    axis.title.x = element_text(face = "bold", margin = margin(t = 12)),
+    axis.title.y = element_text(face = "bold", margin = margin(r = 14)),
+    plot.title   = element_text(face = "bold")
+  )
+
+print(p)
+
+
+```
 :::
-:::
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
-
-::: incremental
-*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
-
-*Upper Right*: Summary of pathway enrichment for non-responders
-
-:::
-:::
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
-
-::: columns
-::: {.column width="50%"}
-![](images/nature_good_plot.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="50%"}
-<br>
-*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
-
-*Lower Right*: T-cell dysfunction (left) and T-cell exclusion (right) vs response
-
-::: incremental
--  Tumour looks “inflamed” at baseline, that alone doesn’t guarantee response
-- Future recommendations: 
-  - combination strategies—e.g., pairing cytotoxic or targeted therapy
-  - Use approaches that reverse T-cell dysfunction and/or overcome exclusion —rather than relying on immune activation alone
-
-:::
-
-
-:::
-<span style="font-size:40%">*pCR : pathological complete response (i.e., no residual invasive cancer found at surgery)</span>
-
-<span style="font-size:40%">*RD : residual disease (i.e., cancer still detectable at surgery</span>
-
-<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
-:::
-::: footer
-:::
-
-
-## <span style="font-size:80%">Summary</span> {.smaller}
-
-::: columns
-::: {.column width="0%"}
-![](images/nature_good_plot.png){.border .border-thick}
-
-
-:::
-
-::: {.column width="100%"}
-
-::: incremental
-- Consider visualization as part of your research strategy
-- Certain figure representation choices could create bias and overconfidence
-- Choose visualizations that make data comparisons obvious 
-
-
 :::
 
 
-:::
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
-:::
-::: footer
-:::
+
+
+
+
 
 
 
