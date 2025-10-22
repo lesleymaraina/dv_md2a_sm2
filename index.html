@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content=" Lesley Chapman Hannah, Ph.D., M.S. College of Graduate Studies Northeast Ohio Medical University">
-  <title>Data visualization strategies and Discussion on common pitfalls</title>
+  <title>Descriptive &amp; Structural Views of Categorical Data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -130,7 +130,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h2 style="color: #2A76DD;" class="title">Data visualization strategies and Discussion on common pitfalls</h2>
+  <h2 style="color: #2A76DD;" class="title">Descriptive &amp; Structural Views of Categorical Data</h2>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -141,414 +141,572 @@
 </div>
 
 </section>
-<section id="lecture-overview" class="slide level2">
-<h2>Lecture Overview</h2>
-<ul>
-<li class="fragment">Review: Data visualization practices in biomedical and clinical research</li>
-<li class="fragment">Discuss common data visualization pitfalls</li>
-<li class="fragment">Strategies for redesigning figures for insight</li>
-</ul>
-<div class="footer">
-
-</div>
-</section>
-<section id="recap-importance-of-data-visualization-in-scientific-discovery" class="slide level2 smaller">
-<h2><span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span></h2>
+<section id="section" class="slide level2 smaller">
+<h2><span style="font-size:80%"></span></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/data-science-wrangle_hadley_wickham.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p>Consider clinical and biomedical research discovery lifecycle:</p>
-<ul>
-<li class="fragment">Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence</li>
-<li class="fragment">Generate analysis-ready datasets via data visualization in data wrangling</li>
-<li class="fragment">Modeling: visualize effect and outcomes</li>
-<li class="fragment">Improved communication via data storytelling</li>
-</ul>
-</div><p><span style="font-size:60%">Wickham and Grolemund 2017</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="recap-importance-of-data-visualization-in-scientific-discovery-1" class="slide level2 smaller">
-<h2><span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/data-science-wrangle_hadley_wickham.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p>Consider clinical and biomedical research discovery lifecycle:</p>
-<ul>
-<li class="fragment">Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence</li>
-<li class="fragment">Generate analysis-ready datasets via data visualization in data wrangling</li>
-<li class="fragment">Modeling: visualize effect and outcomes</li>
-<li class="fragment">Improved communication via data storytelling</li>
-</ul>
-</div><p><span style="font-size:60%">Wickham and Grolemund 2017</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="guidance-on-effective-visual-communication" class="slide level2 smaller">
-<h2><span style="font-size:80%">Guidance on effective visual communication</span></h2>
-<p><br> <br> <br></p>
-<div class="columns">
-<div class="column" style="width:0%;">
-
-</div><div class="column" style="width:100%;">
-<p>Communication</p>
-<ul>
-<li class="fragment">Enables clear and impactful communication</li>
-<li class="fragment">Facilitates informed decision making</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="guidance-on-improving-visual-communication" class="slide level2 smaller">
-<h2><span style="font-size:80%">Guidance on Improving visual communication</span></h2>
-<p><br> <br> <br></p>
-<div class="columns">
-<div class="column" style="width:0%;">
-
-</div><div class="column" style="width:100%;">
-<p>Have a clear purpose</p>
-<ul>
-<li class="fragment">Know the purpose of creating the graph</li>
-<li class="fragment">Identify the quantitative evidence to support the purpose</li>
-<li class="fragment">Identify the audience and focus the design to support their needs</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="guidance-on-improving-visual-communication-1" class="slide level2 smaller">
-<h2><span style="font-size:80%">Guidance on Improving visual communication</span></h2>
-<p><br> <br> <br></p>
-<div class="columns">
-<div class="column" style="width:0%;">
-
-</div><div class="column" style="width:100%;">
-<p>Make the message obvious</p>
-<ul>
-<li class="fragment">Use proximity and alignment to aid comparisons</li>
-<li class="fragment">Use colors and annotations to highlight important details</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="common-pitfalls-avoiding-misleading-representations" class="slide level2 smaller">
-<h2><span style="font-size:80%">Common pitfalls: Avoiding misleading representations</span></h2>
-<p><br> <br> <br></p>
-<div class="columns">
-<div class="column" style="width:0%;">
-
-</div><div class="column" style="width:100%;">
-<ul>
-<li class="fragment">Overloading visuals with too much data</li>
-<li class="fragment">Misleading representations of data</li>
-<li class="fragment">Small sample sizes and distributions</li>
-<li class="fragment">Cluttered/disorganized plots</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="common-data-visualization-pitfalls" class="slide level2 smaller">
-<h2><span style="font-size:80%">Common data visualization pitfalls</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_paper.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment">Comparison of computational tools (variant callers) that identify disease causing variants from DNA samples</li>
-<li class="fragment">Comparison of 7 callers</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="common-data-visualization-pitfalls-1" class="slide level2 smaller">
-<h2><span style="font-size:80%">Common data visualization pitfalls</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_circle_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment">Multi-colored mappings
-<ul>
-<li class="fragment">Use color minimally</li>
-</ul></li>
-<li class="fragment">Overcrowded visualizations
-<ul>
-<li class="fragment">Strategy: reduce information via filtering or clustering or use a different layout</li>
-</ul></li>
-</ul>
-</div><p><span style="font-size:60%">Trevarton, A.J., et. al.&nbsp;(2023). Nature Scientific Reports.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="common-data-visualization-pitfalls-2" class="slide level2 smaller">
-<h2><span style="font-size:80%">Common data visualization pitfalls</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/upset_callers_xmarks_cutoff35.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment">Upset plot comparing the performance of 7 callers</li>
-</ul>
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="misleading-representations-of-data" class="slide level2 smaller">
-<h2><span style="font-size:80%">Misleading representations of data</span></h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img data-src="images/bar_plot_misrep.png" class="border border-thick"></p>
-</div><div class="column" style="width:70%;">
-
-</div><p><span style="font-size:60%">Riedel, N. (2022). Clin Sci Lond.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="distributions-and-sample-sizes" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-
-</div><div class="column" style="width:50%;">
-
-</div></div>
-<div class="footer">
-
-</div>
-</section>
-<section id="distributions-and-sample-sizes-1" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="images/small_sample_n5.png" class="border border-thick"></p>
+<div class="column" style="width:100%;">
+<p><img data-src="images/research_grant_idea.png" class="border border-thick"></p>
 </div><div class="column" style="width:0%;">
 
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
+</div></div>
 <div class="footer">
 
 </div>
 </section>
-<section id="distributions-and-sample-sizes-2" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
+<section id="section-1" class="slide level2 smaller">
+<h2><span style="font-size:80%"></span></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/small_sample_n20.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="distributions-and-sample-sizes-3" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="images/small_sample_n100.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="distributions-and-sample-sizes-4" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p><img data-src="images/small_sample_npop.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="distributions-and-sample-sizes-5" class="slide level2 smaller">
-<h2><span style="font-size:80%">Distributions and sample sizes</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/effective_dotplot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-
-</div><div class="column" style="width:50%;">
+<div class="column" style="width:100%;">
+<p><img data-src="images/research_grant_idea_1.png" class="border border-thick"></p>
+</div><div class="column" style="width:0%;">
 
 </div></div>
 <div class="footer">
 
 </div>
 </section>
-<section id="redesigning-figures-for-insight-1" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
+<section id="section-2" class="slide level2 smaller">
+<h2><span style="font-size:80%"></span></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/box_whisker_left.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
+<div class="column" style="width:100%;">
+<p><img data-src="images/research_grant_idea_2.png" class="border border-thick"></p>
+</div><div class="column" style="width:0%;">
 
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
+</div></div>
 <div class="footer">
 
 </div>
 </section>
-<section id="redesigning-figures-for-insight-2" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
+<section id="section-3" class="slide level2 smaller">
+<h2><span style="font-size:80%"></span></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/box_whisker_right.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
+<div class="column" style="width:100%;">
+<p><img data-src="images/research_grant_idea_3.png" class="border border-thick"></p>
+</div><div class="column" style="width:0%;">
 
-</div><p><span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span></p>
-</div>
+</div></div>
 <div class="footer">
 
 </div>
 </section>
-<section id="redesigning-figures-for-insight-3" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
+<section id="answering-biomedical-research-questions-using-categorical-data-visualization" class="slide level2 smaller">
+<h2><span style="font-size:60%">Answering Biomedical Research Questions using Categorical Data Visualization</span></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-</div><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight-4" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-<p><em>Figure takeaway</em>: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response</p>
-</div><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight-5" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-<p><em>Figure takeaway</em>: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response</p>
-<p><em>Scatter Plot</em>: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity</p>
-</div><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight-6" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-<p><em>Figure takeaway</em>: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response</p>
-<p><em>Scatter Plot</em>: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity</p>
-<p><em>Scatter Plot (Top Right)</em>: samples that’re STAT1/high CGI are inflamed and high genomic variability</p>
-</div><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight-7" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-<p><em>Figure takeaway</em>: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response</p>
-<p><em>Upper Right</em>: Summary of pathway enrichment for non-responders</p>
-</div><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
-
-</div>
-</section>
-<section id="redesigning-figures-for-insight-8" class="slide level2 smaller">
-<h2><span style="font-size:80%">Redesigning figures for insight</span></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:50%;">
-<p><br> <em>Study aim</em>: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?</p>
-<p><em>Lower Right</em>: T-cell dysfunction (left) and T-cell exclusion (right) vs response</p>
+<div class="column" style="width:100%;">
+<p><strong>Descriptive &amp; Structural Questions </strong></p>
 <ul>
-<li class="fragment">Tumour looks “inflamed” at baseline, that alone doesn’t guarantee response</li>
-<li class="fragment">Future recommendations:
+<li class="fragment">Who/What is in the data?
 <ul>
-<li class="fragment">combination strategies—e.g., pairing cytotoxic or targeted therapy</li>
-<li class="fragment">Use approaches that reverse T-cell dysfunction and/or overcome exclusion —rather than relying on immune activation alone</li>
+<li class="fragment">What categories exist?</li>
+<li class="fragment">How large are they?</li>
+<li class="fragment">How do groups overlap?</li>
 </ul></li>
 </ul>
-</div><p><span style="font-size:40%">*pCR : pathological complete response (i.e., no residual invasive cancer found at surgery)</span></p><p><span style="font-size:40%">*RD : residual disease (i.e., cancer still detectable at surgery</span></p><p><span style="font-size:60%">Sammut, SJ, et. al.&nbsp;(2021). Nature.</span></p>
-</div>
-<div class="footer">
+</div><div class="column" style="width:0%;">
 
-</div>
-</section>
-<section id="summary" class="slide level2 smaller">
-<h2><span style="font-size:80%">Summary</span></h2>
-<div class="columns">
-<div class="column" style="width:0%;">
-<p><img data-src="images/nature_good_plot.png" class="border border-thick"></p>
-</div><div class="column" style="width:100%;">
-<ul>
-<li class="fragment">Consider visualization as part of your research strategy</li>
-<li class="fragment">Certain figure representation choices could create bias and overconfidence</li>
-<li class="fragment">Choose visualizations that make data comparisons obvious</li>
-</ul>
 </div></div>
 <div class="footer">
 
 </div>
+</section>
+<section id="answering-biomedical-research-questions-using-categorical-data-visualization-1" class="slide level2 smaller">
+<h2><span style="font-size:60%">Answering Biomedical Research Questions using Categorical Data Visualization</span></h2>
+<div class="columns">
+<div class="column" style="width:100%;">
+<p><strong>Points to consider:</strong></p>
+<ul>
+<li class="fragment">Name/review variables</li>
+<li class="fragment">Understand variable type (nominal/ordinal/binary)</li>
+<li class="fragment">Describe variable’s role within the dataset (cohort descriptor, exposure, outcome/quality flag, operational)
+<ul>
+<li class="fragment">Size categories (counts &amp; %): what/who is in each group</li>
+<li class="fragment">Compare composition across groups: who differs from whom</li>
+<li class="fragment">Show overlaps between groups</li>
+</ul></li>
+<li class="fragment">Document cohort formation: how you got your final N.</li>
+<li class="fragment">Determine whether ordering matters</li>
+</ul>
+</div><div class="column" style="width:0%;">
+
+</div></div>
+<div class="footer">
+
+</div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="dataset" class="slide level2">
+<h2>Dataset</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><strong>Clinic</strong> — nominal (A/B/C/D); cohort descriptor / clustering</li>
+<li><strong>AgeBand</strong> — ordinal (18–54 &lt; 55–74 &lt; ≥75); case-mix</li>
+<li><strong>Blood glucose (Hem_A1c)</strong> — ordinal (&lt;7.0 &lt; 7.0–8.9 &lt; ≥9.0); disease control</li>
+</ul>
+</div><div class="column">
+<div class="tiny-table">
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Clinic</th>
+<th style="text-align: right;">AgeBand</th>
+<th style="text-align: right;">Hem_A1c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">18–54</td>
+<td style="text-align: right;">&lt;7.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">55–74</td>
+<td style="text-align: right;">7.0–8.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">≥75</td>
+<td style="text-align: right;">≥9.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">25–34</td>
+<td style="text-align: right;">&lt;5.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="describe-categories-in-dataset" class="slide level2">
+<h2>Describe categories in dataset</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><strong>Payer</strong> — nominal (Commercial/Medicare/Medicaid/Self-pay); operations/coverage</li>
+<li><strong>ScreenUpToDate</strong> — binary (No/Yes); quality outcome/flag</li>
+<li><strong>Smoking</strong> — nominal (Never/Former/Current); risk factor</li>
+<li><strong>Eosinophil</strong> count (EosHigh) — binary (No/Yes); biomarker/proxy for COPD phenotype</li>
+</ul>
+</div><div class="column">
+
+</div></div>
+</section>
+<section id="visualize-categorical-data-landscape" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating category size across clinics</strong></p>
+<ul>
+<li><em>Question</em>: How many patients does each clinic (A–D) contribute right now?</li>
+<li><em>Plot type</em>: Bar chart of counts</li>
+<li><em>Rationale</em>: “who’s in the cohort”</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-1-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-1" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>What the plot shows</strong></p>
+<ul>
+<li><p>The figure communicates <strong>category size</strong></p></li>
+<li><p><strong>X-axis</strong>: clinics</p></li>
+<li><p><strong>Y-axis</strong> is labeled “Patients (n)”</p>
+<ul>
+<li>raw counts (not percentages)</li>
+</ul></li>
+<li><p><strong>Bars = counts</strong> (n) of patients per <strong>Clinic</strong> (A, B, C, D)</p></li>
+<li><p>The figure communicates <strong>category size</strong></p></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-2-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-2" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Research utility</strong></p>
+<ul>
+<li><strong>Feasibility</strong>: Allows you to identify where patient representation may be lacking for stratified or hierarchical analyses</li>
+<li><strong>Design signal</strong>: If one clinic contributes most patients, consider <strong>site stratification/weighting</strong> to avoid downstream biased comparisons</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-3-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-3" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across clinics (in-person visits): screening status</strong></p>
+<ul>
+<li><p><em>Question</em>: Within each clinic, what share of in-person visits are up-to-date on diabetes screening?</p></li>
+<li><p><em>Plot type</em>: 100% stacked bar chart shows composition within each clinic</p></li>
+<li><p><em>Rationale</em>:</p>
+<ul>
+<li>Allows to compare mix (Yes vs No) rather than raw volume</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-4-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-4" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across clinics (in-person visits): screening status</strong></p>
+<p><strong>What the plot shows</strong></p>
+<ul>
+<li><p>Each bar : a clinic (A–D).</p></li>
+<li><p>Stack segments = ScreenUpToDate categories (Yes/No)</p></li>
+<li><p>Y-axis : within-clinic share (percent); each bar sums to 100%</p></li>
+<li><p>Composition across clinics, not absolute counts</p>
+<ul>
+<li>Allows to compare mix (Yes vs No) rather than raw volume</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-5-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-5" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across clinics (in-person visits): screening status</strong></p>
+<p><strong>Research utility</strong></p>
+<ul>
+<li>Study Feasibility: If some clinics have very low “Yes” rates—or one category is tiny consider pooling or sensitivity analyses</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-6-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-6" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating category size for Hemoglobin A1c distributions</strong></p>
+<ul>
+<li><p><em>Question</em>: How many patients fall into each A1c category?</p></li>
+<li><p><em>Plot type</em>: lollipop chart</p></li>
+<li><p>Rationale:</p>
+<ul>
+<li>line from 0 to the count with a dot at the top</li>
+<li>shows category sizes with exact labels</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-7-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-7" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating category size for Hemoglobin A1c distributions</strong></p>
+<p><strong>What the plot shows</strong></p>
+<ul>
+<li>Each point is the count (n) in an A1c_bin category</li>
+<li>Vertical segment emphasizes magnitude</li>
+<li>In-plot labels show exact counts</li>
+<li>Y-axis is Patients (n) (raw volume, not %).</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-8-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-8" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating category size for Hemoglobin A1c distributions</strong></p>
+<p><strong>Research utility</strong></p>
+<ul>
+<li><strong>Feasibility &amp; power</strong>: Could show whether you have enough patients in key strata (e.g., ≥9.0) for subgroup analyses</li>
+<li><strong>Design signals</strong>: If a category is very small or absent, consider to pooling or redefining bins</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-9-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-9" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across groups</strong></p>
+<ul>
+<li><p><em>Question</em>: How does the smoking mix compare across age bands?</p></li>
+<li><p><em>Plot type</em>: row-normalized heatmap</p></li>
+<li><p>Rationale:</p>
+<ul>
+<li>shows smoking status composition within each age band</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-10-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-10" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across groups</strong></p>
+<p><strong>What the plot shows</strong></p>
+<ul>
+<li><strong>Axes</strong>
+<ul>
+<li>X-axis: Smoking status</li>
+<li>Y-axis: Age band</li>
+</ul></li>
+<li>Color (fill): Percentage of individuals within each group [smoking status amongst age bands]</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-11-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-11" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across groups</strong></p>
+<p><strong>What the plot shows</strong></p>
+<ul>
+<li><strong>Axes</strong>
+<ul>
+<li>X-axis: Smoking status</li>
+<li>Y-axis: Age band</li>
+</ul></li>
+<li>Color (fill): Percentage of individuals within each group [smoking status amongst age bands]</li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-12-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+</section>
+<section id="visualize-categorical-data-landscape-12" class="slide level2">
+<h2>Visualize Categorical Data Landscape</h2>
+<div class="columns">
+<div class="column small">
+<p><strong>Evaluating composition across groups</strong></p>
+<p><strong>Research utility (why this helps design)</strong></p>
+<ul>
+<li><strong>Confounding awareness:</strong>
+<ul>
+<li>If smoking composition differs by age could inform a downstream research question</li>
+</ul></li>
+<li><strong>Feasibility: </strong>
+<ul>
+<li>In-tile (n) confirms whether strata like ≥75 and Smoking Status = Current are large enough for downstream analyses</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-13-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
 
 </section>
     </div>
@@ -769,6 +927,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
