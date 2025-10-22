@@ -1425,6 +1425,37 @@ print(p)
 
 
 
+## <span style="font-size:60%">Making Sense of Variables: Categorical vs. Numerical</span> {.smaller}
+
+::: columns
+
+::: {.column width="100%"}
+**Utility of Categorical Data Visualization**
+
+::: incremental
+- **Classifies and organizes data** – Groups patients, outcomes, or variables into meaningful categories.
+
+- **Reveals patterns and distributions** – Highlights trends across populations or treatment groups.
+
+- **Supports comparisons** – Enables statistical and visual comparisons between groups.
+
+- **Informs decision-making** – Guides research design, clinical interventions, and public health policies.
+
+- **Facilitates hypothesis generation** – Helps identify associations and potential relationships for further study.
+
+:::
+:::
+
+::: {.column width="0%"}
+
+
+::: incremental
+
+:::
+:::
+:::
+::: footer
+:::
 
 
 
