@@ -1,0 +1,984 @@
+---
+title: "Descriptive & Structural Views of Categorical Data"
+author: "<br><br><span style='font-size:25px;'><strong>Lesley Chapman Hannah, Ph.D., M.S.</strong></span><br>College of Graduate Studies<br>Northeast Ohio Medical University"
+
+format: 
+  revealjs:
+    #theme: solarized
+    css: style.css
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/Flame.jpg
+    #css: styles.css
+    
+---
+
+## Lecture # 2 Example
+
+
+::: incremental
+- Review: Data visualization practices in biomedical and clinical research
+- Discuss common data visualization pitfalls
+- Strategies for redesigning figures for insight
+
+
+:::
+
+
+::: footer
+
+:::
+
+
+
+## Merge select code with figure ouput
+
+```{r}
+#| echo: true
+#| eval: false
+# one-liner example (shown, not executed)
+mean(mtcars$mpg)
+```
+
+```{r}
+#| echo: false
+#| eval: true
+# Hidden long code (15 lines) that actually produces the plot
+suppressPackageStartupMessages(library(ggplot2))
+d <- mtcars
+d$am <- factor(d$am, labels = c("Automatic","Manual"))
+d$cyl <- factor(d$cyl)
+p <- ggplot(d, aes(hp, mpg, color = am))
+p <- p + geom_point()
+p <- p + geom_smooth(method = "loess", se = FALSE)
+p <- p + facet_grid(. ~ cyl)
+p <- p + labs(title = "Horsepower vs MPG",
+              x = "Horsepower", y = "Miles per Gallon",
+              color = "Transmission")
+p <- p + theme_minimal(base_size = 14)
+p <- p + theme(legend.position = "bottom")
+p <- p + guides(color = guide_legend(title.position = "top"))
+p <- p + scale_x_continuous(expand = c(0.02, 0.02))
+p <- p + scale_y_continuous(expand = c(0.02, 0.02))
+p
+```
+
+
+
+## Text left, plot right
+
+::: columns
+::: {.column .small}
+### Why this matters
+- Pair clear narrative with evidence.
+- Keep audience focus: words left, visuals right.
+- Swap your own text here.
+
+**Tip:** This template hides R code and only shows the figure on the right.
+If you want to show code too, set `echo: true` in the chunk options.
+
+::: callout-note
+Use this pattern for quick explanatory slides where the figure supports the point you're making.
+:::
+
+:::
+::: column
+
+```{r}
+#| fig-width: 8
+#| fig-height: 5
+
+# A simple example plot (replace with your own data/plot)
+suppressPackageStartupMessages(library(ggplot2))
+
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(
+    title = "Fuel efficiency vs. weight",
+    x = "Weight (1000 lbs)",
+    y = "Miles per gallon"
+  ) +
+  theme_classic(base_size = 16) +
+  theme(plot.title = element_text(face = "bold"))
+```
+:::
+:::
+
+
+<style>
+.tiny-table table { font-size: 0.8em; }        /* adjust as needed (0.8–0.9em) */
+.tiny-table figcaption, .tiny-table .table-caption { font-size: 0.75em; }
+</style>
+
+## CAR-T Therapy Toxicity Overview
+
+::: columns
+::: column
+- CAR-T therapy can cause **Cytokine Release Syndrome (CRS)** and **Neurotoxicity**.
+- Most patients experience **Grade 1–2 toxicities**.
+- **Monitoring and early intervention** are crucial.
+:::
+
+::: column
+<div class="tiny-table">
+
+```{r}
+#| label: car-t-toxicity-table
+#| tbl-cap: "CAR-T Therapy Toxicity Counts"
+
+df <- data.frame(
+  Grade = c("Grade 1","Grade 2","Grade 3","Grade 4"),
+  CRS = c(30,25,10,3),
+  Neurotoxicity = c(28,22,12,2),
+  check.names = FALSE
+)
+
+knitr::kable(df, align = c("l","r","r"))
+```
+</div>
+:::
+:::
+
+
+
+
+
+
+---
+
+## Variation: show the code too
+
+::: columns
+::: {.column .small}
+You can reveal the code by turning on `echo: true` for a specific chunk.
+This slide demonstrates that option.
+:::
+::: column
+
+```{r}
+#| echo: true
+#| fig-width: 8
+#| fig-height: 5
+
+# Another quick example
+set.seed(1)
+df <- data.frame(
+  group = rep(c("A","B","C"), each = 20),
+  value = rnorm(60, mean = rep(c(0, 0.5, -0.2), each = 20), sd = 0.5)
+)
+
+ggplot(df, aes(group, value)) +
+  geom_boxplot() +
+  labs(title = "Group differences", x = NULL, y = "Value") +
+  theme_classic(base_size = 16) +
+  theme(plot.title = element_text(face = "bold"))
+```
+:::
+:::
+
+## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
+:::
+
+::: {.column width="50%"}
+Consider clinical and biomedical research discovery lifecycle:
+
+
+[Open dataset](https://health.data.ny.gov/stories/s/ru78-uxr9){.btn .btn-primary target="_blank" rel="noopener"}
+
+
+::: incremental
+- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
+- Generate analysis-ready datasets via data visualization in data wrangling
+- Modeling: visualize effect and outcomes
+- Improved communication via data storytelling
+
+
+
+:::
+:::
+<span style="font-size:60%">Wickham and Grolemund 2017</span>
+:::
+::: footer
+:::
+
+
+
+
+
+## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
+:::
+
+::: {.column width="50%"}
+Consider clinical and biomedical research discovery lifecycle:
+
+::: incremental
+- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
+- Generate analysis-ready datasets via data visualization in data wrangling
+- Modeling: visualize effect and outcomes
+- Improved communication via data storytelling
+
+
+
+:::
+:::
+<span style="font-size:60%">Wickham and Grolemund 2017</span>
+:::
+::: footer
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Plot and context
+
+::: columns
+
+::: column width="38%"
+
+::: callout-note
+#### How to read this figure
+- Scatterplot of **horsepower** vs **MPG** with a **LOESS** smooth.
+- Encodes a **negative relationship** (higher hp, lower mpg).
+- Use this slide style for *“What’s in the data right now?”* demos.
+- Tip: replace `mtcars` with your dataset; code is hidden by default.
+:::
+
+:::
+
+::: column width="62%"
+
+```{r}
+library(ggplot2)
+ggplot(mtcars, aes(hp, mpg, color = factor(am))) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "loess", se = FALSE) +
+  labs(color = "Transmission")
+```
+
+:::
+
+:::
+
+## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
+:::
+
+::: {.column width="50%"}
+Consider clinical and biomedical research discovery lifecycle:
+
+::: incremental
+- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
+- Generate analysis-ready datasets via data visualization in data wrangling
+- Modeling: visualize effect and outcomes
+- Improved communication via data storytelling
+
+
+
+:::
+:::
+<span style="font-size:60%">Wickham and Grolemund 2017</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Recap: Importance of data visualization in scientific discovery</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/data-science-wrangle_hadley_wickham.png){.border .border-thick}
+:::
+
+::: {.column width="50%"}
+Consider clinical and biomedical research discovery lifecycle:
+
+::: incremental
+- Data visualization purpose in the research lifecycle is to turn raw information into trustworthy, decision-ready evidence
+- Generate analysis-ready datasets via data visualization in data wrangling
+- Modeling: visualize effect and outcomes
+- Improved communication via data storytelling
+
+
+
+:::
+:::
+<span style="font-size:60%">Wickham and Grolemund 2017</span>
+:::
+::: footer
+:::
+
+
+
+
+## <span style="font-size:80%">Guidance on effective visual communication</span> {.smaller}
+<br>
+<br>
+<br>
+
+::: columns
+::: {.column width="0%"}
+
+:::
+
+::: {.column width="100%"}
+Communication
+
+::: incremental
+- Enables clear and impactful communication
+- Facilitates informed decision making
+:::
+:::
+
+:::
+::: footer
+:::
+
+## <span style="font-size:80%">Guidance on Improving visual communication</span> {.smaller}
+<br>
+<br>
+<br>
+
+::: columns
+::: {.column width="0%"}
+
+:::
+
+::: {.column width="100%"}
+Have a clear purpose
+
+::: incremental
+- Know the purpose of creating the graph
+- Identify the quantitative evidence to support the purpose
+- Identify the audience and focus the design to support their needs
+
+:::
+:::
+
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Guidance on Improving visual communication</span> {.smaller}
+<br>
+<br>
+<br>
+
+::: columns
+::: {.column width="0%"}
+
+:::
+
+::: {.column width="100%"}
+Make the message obvious
+
+::: incremental
+- Use proximity and alignment to aid comparisons
+- Use colors and annotations to highlight important details
+
+
+:::
+:::
+
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Common pitfalls: Avoiding misleading representations</span> {.smaller}
+<br>
+<br>
+<br>
+
+::: columns
+::: {.column width="0%"}
+
+:::
+
+::: {.column width="100%"}
+
+
+::: incremental
+- Overloading visuals with too much data
+- Misleading representations of data
+- Small sample sizes and distributions
+- Cluttered/disorganized plots
+
+
+
+:::
+:::
+
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_paper.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+- Comparison of computational tools (variant callers) that identify disease causing variants  from DNA samples
+- Comparison of 7 callers
+
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_circle_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+- Multi-colored mappings
+    - Use color minimally 
+- Overcrowded visualizations 
+    - Strategy: reduce information via filtering or clustering or use a different layout
+
+
+
+:::
+:::
+<span style="font-size:60%">Trevarton, A.J., et. al. (2023). Nature Scientific Reports.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Common data visualization pitfalls</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/upset_callers_xmarks_cutoff35.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+- Upset plot comparing the performance of 7 callers
+
+
+
+:::
+:::
+:::
+::: footer
+:::
+
+
+
+
+
+
+## <span style="font-size:80%">Misleading representations of data</span> {.smaller}
+
+::: columns
+::: {.column width="30%"}
+![](images/bar_plot_misrep.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="70%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Riedel, N. (2022). Clin Sci Lond.</span>
+:::
+::: footer
+:::
+
+
+
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+
+:::
+::: footer
+:::
+
+
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="60%"}
+![](images/small_sample_n5.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="0%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/small_sample_n20.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="60%"}
+![](images/small_sample_n100.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="60%"}
+![](images/small_sample_npop.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+
+
+## <span style="font-size:80%">Distributions and sample sizes</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/effective_dotplot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+
+
+
+
+
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/box_whisker_left.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/box_whisker_right.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Weissgerber, TL. (2019). AHA Circulation.</span>
+:::
+::: footer
+:::
+
+
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+::: incremental
+
+
+
+
+:::
+:::
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+
+
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+::: incremental
+*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+
+
+
+:::
+:::
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+::: incremental
+*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+
+*Scatter Plot*: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity
+
+:::
+:::
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+::: incremental
+*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+
+*Scatter Plot*: (STAT1) is an interferon/immune-activation gene-signature score vs measure of copy-number burden/genomic complexity
+
+*Scatter Plot (Top Right)*: samples that’re STAT1/high CGI are inflamed and high genomic variability
+
+:::
+:::
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+::: incremental
+*Figure takeaway*: immune activation and tumor mutational burden alone doesn’t guarantee an enhanced therapeutic response
+
+*Upper Right*: Summary of pathway enrichment for non-responders
+
+:::
+:::
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Redesigning figures for insight</span> {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="50%"}
+<br>
+*Study aim*: Can training machine learning models with combined omics data types predict how an individual breast cancer will respond to therapy better than any single assay?
+
+*Lower Right*: T-cell dysfunction (left) and T-cell exclusion (right) vs response
+
+::: incremental
+-  Tumour looks “inflamed” at baseline, that alone doesn’t guarantee response
+- Future recommendations: 
+  - combination strategies—e.g., pairing cytotoxic or targeted therapy
+  - Use approaches that reverse T-cell dysfunction and/or overcome exclusion —rather than relying on immune activation alone
+
+:::
+
+
+:::
+<span style="font-size:40%">*pCR : pathological complete response (i.e., no residual invasive cancer found at surgery)</span>
+
+<span style="font-size:40%">*RD : residual disease (i.e., cancer still detectable at surgery</span>
+
+<span style="font-size:60%">Sammut, SJ, et. al. (2021). Nature.</span>
+:::
+::: footer
+:::
+
+
+## <span style="font-size:80%">Summary</span> {.smaller}
+
+::: columns
+::: {.column width="0%"}
+![](images/nature_good_plot.png){.border .border-thick}
+
+
+:::
+
+::: {.column width="100%"}
+
+::: incremental
+- Consider visualization as part of your research strategy
+- Certain figure representation choices could create bias and overconfidence
+- Choose visualizations that make data comparisons obvious 
+
+
+:::
+
+
+:::
+
+:::
+::: footer
+:::
+
+
+
+
+
+
+
